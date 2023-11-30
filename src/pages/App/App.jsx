@@ -11,7 +11,7 @@ export default function App() {
   const [user, setUser] = useState(getUser());
 
   return (
-    <main className="App">
+    <main className="App flex mt-28">
       { user ?
           <>
             <NavBar user={user} setUser={setUser} />
