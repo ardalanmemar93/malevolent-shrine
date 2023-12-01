@@ -1,0 +1,8 @@
+.neon {
+    font-weight: 500; 
+    text-align: center; 
+    text-transform: uppercase; 
+    letter-spacing: 0.2rem; 
+    color: #fff; 
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #fa0207, 0 0 70px #fa0207, 0 0 80px #fa0207, 0 0 100px #fa0207, 0 0 150px #fa0207; 
+  }

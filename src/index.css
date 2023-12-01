@@ -3,3 +3,27 @@
 @tailwind utilities;
 
 
+body {
+  background-image: url('/public/images/malevolent-shrine-red.svg');
+  background-size: auto 100%; 
+  background-repeat: no-repeat; 
+  background-position: center center; 
+  background-attachment: fixed; 
+  background-color: #282c35; 
+  margin: 0; 
+  padding: 20px; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  height: 100vh; 
+}
+
+
+
+
+
+
+
+
+
+
