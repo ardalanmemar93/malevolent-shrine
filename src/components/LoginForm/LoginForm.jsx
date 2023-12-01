@@ -29,16 +29,35 @@ export default function LoginForm({ setUser }) {
 
   return (
     <div>
-      <div className="form-container">
-        <form autoComplete="off" onSubmit={handleSubmit}>
-          <label>Email</label>
-          <input type="text" name="email" value={credentials.email} onChange={handleChange} required />
-          <label>Password</label>
-          <input type="password" name="password" value={credentials.password} onChange={handleChange} required />
-          <button type="submit">LOG IN</button>
+      <div className="form-container neon max-w-xs mx-auto mt-8 p-4 rounded-md">
+        <form autoComplete="off" onSubmit={handleSubmit} className="flex flex-col space-y-4">
+          <label className="text-white">Email</label>
+          <input
+            type="text"
+            name="email"
+            value={credentials.email}
+            onChange={handleChange}
+            required
+            className="px-3 py-2 border border-gray-600 rounded-md focus:outline-none focus:border-blue-500"
+          />
+          <label className="text-white">Password</label>
+          <input
+            type="password"
+            name="password"
+            value={credentials.password}
+            onChange={handleChange}
+            required
+            className="px-3 py-2 border border-gray-600 rounded-md focus:outline-none focus:border-blue-500"
+          />
+          <button
+            type="submit"
+            className=" neon {`neon px-4 py-2 rounded-full transition duration-300 ${disable ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105'} focus:outline-none bg-red-500`}"
+          >
+            LOG IN
+          </button>
         </form>
       </div>
-      <p className="error-message">&nbsp;{error}</p>
+      <p className="error-message text-red-500">&nbsp;{error}</p>
     </div>
   );
 }

@@ -5,4 +5,9 @@
     text-transform: uppercase; 
     letter-spacing: 0.2rem; 
     color: #fff; 
+    text-shadow: 0 0 10px #fa0207, 0 0 20px #fa0207, 0 0 30px #fa0207, 0 0 40px #fa02a3, 0 0 70px #fa02a3, 0 0 80px #fa02a3, 0 0 100px #fa02a3, 0 0 150px #fa02a3; 
+  }
+
+  input {
+    color: black;
   }

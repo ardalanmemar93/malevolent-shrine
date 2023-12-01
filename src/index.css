@@ -4,8 +4,8 @@
 
 
 body {
-  background-image: url('/public/images/malevolent-shrine-red.svg');
-  background-size: auto 100%; 
+  background-image: url('/public/images/malevolent-shrine.jpg');
+  background-size: cover; 
   background-repeat: no-repeat; 
   background-position: center center; 
   background-attachment: fixed; 
