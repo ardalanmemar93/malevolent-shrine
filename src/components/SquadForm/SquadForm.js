@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import getCharacter from '../../utilities/jikan-api';
+// import getCharacter from '../../utilities/jikan-api';
+import getCharacter, { searchCharacters } from '../../utilities/jikan-api';
+
 
 const SquadForm = () => {
   const [name, setName] = useState('');
@@ -7,24 +9,37 @@ const SquadForm = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [selectedCharacters, setSelectedCharacters] = useState([]);
 
+
+
+
+  
   const handleSearch = async () => {
     try {
       // Send a request to Jikan API to search for anime characters
-      const response = await fetch(`https://api.jikan.moe/v4/characters/?q=${characterSearch}`);
-      const data = await response.json();
-  
-      // Ensure that data.results is an array before using map
-      const characterIds = Array.isArray(data.results) ? data.results.map(result => result.mal_id) : [];
-  
-      // Fetch detailed character data using getCharacter function
-      const detailedCharacterData = await Promise.all(characterIds.map(id => getCharacter(id)));
-  
-      // Set the search results with detailed character data
-      setSearchResults(detailedCharacterData);
+      const data = await searchCharacters(characterSearch);
+      console.log('Received data from Jikan API:', data);
+
+      // Ensure that data.data is an array before using map
+      const characterIds = Array.isArray(data.data) ? data.data.map(result => result.mal_id) : [];
+      console.log('Character IDs:', characterIds);
+
+      // Fetch detailed character data using getCharacter function for the top two results
+      const topTwoCharacterData = await Promise.all(characterIds.slice(0, 2).map(id => getCharacter(id)));
+      console.log('Top Two Character Data:', topTwoCharacterData);
+
+      // Set the search results with the detailed character data
+      setSearchResults(topTwoCharacterData);
     } catch (error) {
       console.error('Error searching for characters:', error);
     }
   };
+  
+  
+  
+  
+  
+  
+  
   
   
 
@@ -100,41 +115,59 @@ const SquadForm = () => {
 
       {/* Display search results */}
       {searchResults && searchResults.length > 0 && (
-        <div>
-          <h3>Search Results:</h3>
-          <ul>
-            {searchResults.map((result) => (
-              <li key={result.mal_id}>
-                {result.name}{' '}
-                <button type="button" onClick={() => handleAddCharacter(result)}>
-                  Add
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+  <div>
+    <h3>Search Results:</h3>
+    <ul>
+      {searchResults.map((result) => (
+        <li key={result.id}>
+          <div>
+            <img src={result.imageUrl} alt={result.name} />
+            <span>{result.name}</span>
+          </div>
+          <button type="button" onClick={() => handleAddCharacter(result)}>
+            Add
+          </button>
+        </li>
+      ))}
+    </ul>
+  </div>
+)}
 
-      {/* Display selected characters */}
-      {selectedCharacters && selectedCharacters.length > 0 && (
-        <div>
-          <h3>Selected Characters:</h3>
-          <ul>
-            {selectedCharacters.map((character) => (
-              <li key={character.mal_id}>
-                {character.name}{' '}
-                <button type="button" onClick={() => handleRemoveCharacter(character)}>
-                  Remove
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+    {/* Display selected characters */}
+    {selectedCharacters && selectedCharacters.length > 0 && (
+      <div>
+        <h3>Selected Characters:</h3>
+        <ul>
+          {selectedCharacters.map((character) => (
+            <li key={character.mal_id}>
+              {character.name}{' '}
+              <button type="button" onClick={() => handleRemoveCharacter(character)}>
+                Remove
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
 
-      <button type="submit">Create Squad</button>
-    </form>
-  );
+    {/* Display selected characters before adding to the squad */}
+    {selectedCharacters.length > 0 && (
+      <div>
+        <h3>Characters to Add to Squad:</h3>
+        <ul>
+          {selectedCharacters.map((character) => (
+            <li key={character.mal_id}>
+              {character.name}
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+
+    {/* <button type="submit">Create Squad</button> */}
+  </form>
+);
 };
+
 
 export default SquadForm;

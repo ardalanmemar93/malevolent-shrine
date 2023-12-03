@@ -6,7 +6,8 @@ const characterSchema = new Schema({
     name_kanji: String,
     image: String,
     about: String,
-    favorites: Number
+    favorites: Number,
+    mal_id: Number, 
 }, {
     timestamps: true
 });
