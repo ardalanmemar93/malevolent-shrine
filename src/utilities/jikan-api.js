@@ -34,6 +34,7 @@ const BASE_URL = 'https://api.jikan.moe/v4';
             console.log('Name (Kanji):', data.data.name_kanji);
             console.log('About:', data.data.about);
             console.log('Favorites:', data.data.favorites);
+            console.log('Id:', data.data.mal_id);
     
             return data.data;
         } catch (error) {
