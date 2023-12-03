@@ -12,7 +12,7 @@ export default function App() {
   const [user, setUser] = useState(getUser());
 
   useEffect(() => {
-    getCharacter(909);
+    getCharacter(7);
   }, []);
 
   return (

@@ -6,6 +6,12 @@ const logger = require('morgan');
 require('dotenv').config();
 // Connect to the database
 require('./config/database');
+const squadsRoutes = require('./routes/api/squads');
+
+
+
+
+
 
 const app = express();
 
@@ -23,6 +29,9 @@ const port = process.env.PORT || 3001;
 
 // Put API routes here, before the "catch all" route
 app.use('/api/users', require('./routes/api/users'));
+
+app.use('/api/squads', squadsRoutes);
+
 
 // The following "catch all" route (note the *) is necessary
 // to return the index.html on all non-AJAX/API requests
