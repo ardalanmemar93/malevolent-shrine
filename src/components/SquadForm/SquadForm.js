@@ -86,46 +86,94 @@ const SquadForm = () => {
     }
   };
 
+
+  
   // Render your form
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="name">Squad Name:</label>
+    <form onSubmit={handleSubmit} className="max-w-md mx-auto mt-8 p-4  shadow-md rounded-md">
+      <div className="mb-4">
+        <label htmlFor="name" className="block  text-sm font-bold mb-2 neon">
+          Squad Name:
+        </label>
         <input
           type="text"
           id="name"
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
+          className="w-full px-3 py-2 border rounded focus:outline-none focus:border-blue-500"
         />
       </div>
 
-      <div>
-        <label htmlFor="characterSearch">Search for Anime Character:</label>
-        <input
-          type="text"
-          id="characterSearch"
-          value={characterSearch}
-          onChange={(e) => setCharacterSearch(e.target.value)}
-        />
-        <button type="button" onClick={handleSearch}>
-          Search
-        </button>
+      <div className="mb-4">
+        <label htmlFor="characterSearch" className="block  text-sm font-bold mb-2 neon">
+          Search for Anime Character:
+        </label>
+        <div className="flex">
+          <input
+            type="text"
+            id="characterSearch"
+            value={characterSearch}
+            onChange={(e) => setCharacterSearch(e.target.value)}
+            className="w-full px-3 py-2 border rounded-l focus:outline-none focus:border-blue-500"
+          />
+          <button
+            type="button"
+            onClick={handleSearch}
+            className="bg-blue-500 text-white px-4 py-2 rounded-r hover:bg-blue-600"
+          >
+            Search
+          </button>
+        </div>
       </div>
 
       {/* Display search results */}
       {searchResults && searchResults.length > 0 && (
+        <div>
+          <h3 className="text-xl font-bold mb-2">Search Results:</h3>
+          <ul className="space-y-4">
+            {searchResults.map((result) => (
+              <li
+                key={result.id}
+                className="bg-transparent p-3 border border-gray-300 rounded-md flex items-center justify-between"
+              >
+                <div className="flex items-center">
+                  <img src={result.imageUrl} alt={result.name} className="w-12 h-12 rounded-full mr-4" />
+                  <span className="text-gray-800 font-semibold">{result.name}</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => handleAddCharacter(result)}
+                  className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
+                >
+                  Add
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+    {/* Display selected characters before adding to the squad */}
+    {selectedCharacters && selectedCharacters.length > 0 && (
   <div>
-    <h3>Search Results:</h3>
-    <ul>
-      {searchResults.map((result) => (
-        <li key={result.id}>
-          <div>
-            <img src={result.imageUrl} alt={result.name} />
-            <span>{result.name}</span>
+    <h3 className="text-xl font-bold mb-2">Characters to Add to Squad:</h3>
+    <ul className="space-y-4">
+      {selectedCharacters.map((character) => (
+        <li
+          key={character.mal_id}
+          className="bg-transparent p-3 border border-gray-300 rounded-md flex items-center justify-between"
+        >
+          <div className="flex items-center">
+            <img src={character.imageUrl} alt={character.name} className="w-12 h-12 rounded-full mr-4" />
+            <span className="neon-green font-semibold">{character.name}</span>
           </div>
-          <button type="button" onClick={() => handleAddCharacter(result)}>
-            Add
+          <button
+            type="button"
+            onClick={() => handleRemoveCharacter(character)}
+            className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+          >
+            Remove
           </button>
         </li>
       ))}
@@ -133,41 +181,97 @@ const SquadForm = () => {
   </div>
 )}
 
-    {/* Display selected characters */}
-    {selectedCharacters && selectedCharacters.length > 0 && (
-      <div>
-        <h3>Selected Characters:</h3>
-        <ul>
-          {selectedCharacters.map((character) => (
-            <li key={character.mal_id}>
-              {character.name}{' '}
-              <button type="button" onClick={() => handleRemoveCharacter(character)}>
-                Remove
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
-    )}
 
-    {/* Display selected characters before adding to the squad */}
-    {selectedCharacters.length > 0 && (
-      <div>
-        <h3>Characters to Add to Squad:</h3>
-        <ul>
-          {selectedCharacters.map((character) => (
-            <li key={character.mal_id}>
-              {character.name}
-            </li>
-          ))}
-        </ul>
-      </div>
-    )}
-
-    {/* <button type="submit">Create Squad</button> */}
-  </form>
-);
+    <button type="submit" className="neon">Create Squad</button>
+    </form>
+  );
 };
 
 
 export default SquadForm;
+
+
+
+
+
+// return (
+//     <form onSubmit={handleSubmit}>
+//       <div>
+//         <label htmlFor="name">Squad Name:</label>
+//         <input
+//           type="text"
+//           id="name"
+//           value={name}
+//           onChange={(e) => setName(e.target.value)}
+//           required
+//         />
+//       </div>
+
+//       <div>
+//         <label htmlFor="characterSearch">Search for Anime Character:</label>
+//         <input
+//           type="text"
+//           id="characterSearch"
+//           value={characterSearch}
+//           onChange={(e) => setCharacterSearch(e.target.value)}
+//         />
+//         <button type="button" onClick={handleSearch}>
+//           Search
+//         </button>
+//       </div>
+
+//       {/* Display search results */}
+//       {searchResults && searchResults.length > 0 && (
+//         <div>
+//             <h3>Search Results:</h3>
+//             <ul>
+//             {searchResults.map((result) => (
+//                 <li key={result.id}>
+//                 <div>
+//                     <img src={result.imageUrl} alt={result.name} />
+//                     <span>{result.name}</span>
+//                 </div>
+//                 <button type="button" onClick={() => handleAddCharacter(result)}>
+//                     Add
+//                 </button>
+//                 </li>
+//             ))}
+//             </ul>
+//         </div>
+//         )}
+
+//     {/* Display selected characters */}
+//     {selectedCharacters && selectedCharacters.length > 0 && (
+//         <div>
+//             <h3>Selected Characters:</h3>
+//             <ul>
+//             {selectedCharacters.map((character) => (
+//                 <li key={`${character.mal_id}-${character.name}`}>
+//                 {character.name}{' '}
+//                 <button type="button" onClick={() => handleRemoveCharacter(character)}>
+//                     Remove
+//                 </button>
+//                 </li>
+//             ))}
+//             </ul>
+//         </div>
+//         )}
+
+//     {/* Display selected characters before adding to the squad */}
+//     {selectedCharacters && selectedCharacters.length > 0 && (
+//       <div>
+//         <h3>Characters to Add to Squad:</h3>
+//         <ul>
+//           {selectedCharacters.map((character) => (
+//             <li key={character.mal_id}>
+//               {character.name}
+//             </li>
+//           ))}
+//         </ul>
+//       </div>
+//     )}
+
+//     <button type="submit">Create Squad</button>
+//   </form>
+// );
+// };
