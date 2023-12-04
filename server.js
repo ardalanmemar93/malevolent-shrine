@@ -7,6 +7,7 @@ require('dotenv').config();
 // Connect to the database
 require('./config/database');
 const squadsRoutes = require('./routes/api/squads');
+const cors = require('cors')
 
 
 
@@ -17,6 +18,14 @@ const squadsRoutes = require('./routes/api/squads');
 
 
 const app = express();
+
+app.use(cors({
+  origin: 'http://localhost:3000',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  exposedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+}));
+
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -43,6 +52,9 @@ app.use('/api/squads', squadsRoutes);
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
+
+
+
 
 app.listen(port, function() {
   console.log(`Express app running on port ${port}`);

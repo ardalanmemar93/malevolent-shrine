@@ -9,18 +9,19 @@ module.exports = {
 };
 
 function checkToken(req, res) {
-  console.log('req.user:', req.user);
-  res.json(req.exp);
-}
-
-async function create(req, res) {
   try {
-    // Add the user to the db
-    const user = await User.create(req.body);
-    const token = createJWT(user);
-    res.json(token);
+    // Verify the JWT token
+    const token = req.headers.authorization.split(' ')[1]; 
+    const decoded = jwt.verify(token, process.env.SECRET);
+    
+    // Extract user information from the decoded token
+    const user = decoded.user;
+
+    console.log('Decoded user:', user);
+    res.json({ user });
   } catch (err) {
-    res.status(400).json(err);
+    console.error('Token verification failed:', err);
+    res.status(401).json({ error: 'Unauthorized' });
   }
 }
 
@@ -46,4 +47,17 @@ function createJWT(user) {
     process.env.SECRET,
     { expiresIn: '24h' }
   );
+}
+
+
+
+async function create(req, res) {
+  try {
+    // Add the user to the db
+    const user = await User.create(req.body);
+    const token = createJWT(user);
+    res.json(token);
+  } catch (err) {
+    res.status(400).json(err);
+  }
 }

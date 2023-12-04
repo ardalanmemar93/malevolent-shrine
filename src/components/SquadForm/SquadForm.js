@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import getCharacter, { searchCharacters } from '../../utilities/jikan-api';
 
 
+
 const SquadForm = () => {
   const [name, setName] = useState('');
   const [characterSearch, setCharacterSearch] = useState('');
@@ -36,13 +37,6 @@ const SquadForm = () => {
   
   
   
-  
-  
-  
-  
-  
-  
-
   const handleAddCharacter = (character) => {
     // Add the selected character to the list of selected characters
     setSelectedCharacters([...selectedCharacters, character]);
@@ -68,7 +62,7 @@ const SquadForm = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name, characters: selectedCharacters /* other data */ }),
+        body: JSON.stringify({ name, characters: selectedCharacters }),
       });
 
       if (response.ok) {
@@ -85,7 +79,6 @@ const SquadForm = () => {
       console.error('Error sending request:', error);
     }
   };
-
 
   
   // Render your form
@@ -134,12 +127,12 @@ const SquadForm = () => {
           <ul className="space-y-4">
             {searchResults.map((result) => (
               <li
-                key={result.id}
+                key={result.mal_id}
                 className="bg-transparent p-3 border border-gray-300 rounded-md flex items-center justify-between"
               >
                 <div className="flex items-center">
                   <img src={result.imageUrl} alt={result.name} className="w-12 h-12 rounded-full mr-4" />
-                  <span className="text-gray-800 font-semibold">{result.name}</span>
+                  <span className="text-gray-800 font-semibold neon-green">{result.name}</span>
                 </div>
                 <button
                   type="button"
@@ -157,7 +150,7 @@ const SquadForm = () => {
     {/* Display selected characters before adding to the squad */}
     {selectedCharacters && selectedCharacters.length > 0 && (
   <div>
-    <h3 className="text-xl font-bold mb-2">Characters to Add to Squad:</h3>
+    <h3 className="text-xl neon font-bold mb-2">Characters to Add to Squad:</h3>
     <ul className="space-y-4">
       {selectedCharacters.map((character) => (
         <li
@@ -168,6 +161,7 @@ const SquadForm = () => {
             <img src={character.imageUrl} alt={character.name} className="w-12 h-12 rounded-full mr-4" />
             <span className="neon-green font-semibold">{character.name}</span>
           </div>
+          
           <button
             type="button"
             onClick={() => handleRemoveCharacter(character)}
@@ -182,7 +176,11 @@ const SquadForm = () => {
 )}
 
 
-    <button type="submit" className="neon">Create Squad</button>
+
+  <button type="submit" className="neon">
+    Create Squad
+  </button>
+
     </form>
   );
 };
