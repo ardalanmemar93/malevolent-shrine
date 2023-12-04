@@ -4,7 +4,7 @@ import getCharacter, { searchCharacters } from '../../utilities/jikan-api';
 
 
 
-const SquadForm = () => {
+const SquadForm = ({user}) => {
   const [name, setName] = useState('');
   const [characterSearch, setCharacterSearch] = useState('');
   const [searchResults, setSearchResults] = useState([]);
@@ -56,13 +56,14 @@ const SquadForm = () => {
     e.preventDefault();
 
     try {
-      // Send a request to your backend to create a new squad
+      // Send a request to the backend to create a new squad
       const response = await fetch('/api/squads/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ name, characters: selectedCharacters }),
+        user: user._id
       });
 
       if (response.ok) {
@@ -83,7 +84,7 @@ const SquadForm = () => {
   
   // Render your form
   return (
-    <form onSubmit={handleSubmit} className="max-w-md mx-auto mt-8 p-4  shadow-md rounded-md">
+    <form onSubmit={handleSubmit} className=" max-w-md mx-auto mt-8 p-4  shadow-md rounded-md">
       <div className="mb-4">
         <label htmlFor="name" className="block  text-sm font-bold mb-2 neon">
           Squad Name:
@@ -108,7 +109,7 @@ const SquadForm = () => {
             id="characterSearch"
             value={characterSearch}
             onChange={(e) => setCharacterSearch(e.target.value)}
-            className="w-full px-3 py-2 border rounded-l focus:outline-none focus:border-blue-500"
+            className=" px-3 py-2 border rounded-l focus:outline-none focus:border-blue-500"
           />
           <button
             type="button"
@@ -128,7 +129,7 @@ const SquadForm = () => {
             {searchResults.map((result) => (
               <li
                 key={result.mal_id}
-                className="bg-transparent p-3 border border-gray-300 rounded-md flex items-center justify-between"
+                className="w-full bg-transparent p-3 border border-gray-300 rounded-md flex items-center justify-between"
               >
                 <div className="flex items-center">
                   <img src={result.imageUrl} alt={result.name} className="w-12 h-12 rounded-full mr-4" />
@@ -147,33 +148,33 @@ const SquadForm = () => {
         </div>
       )}
 
-    {/* Display selected characters before adding to the squad */}
-    {selectedCharacters && selectedCharacters.length > 0 && (
-  <div>
-    <h3 className="text-xl neon font-bold mb-2">Characters to Add to Squad:</h3>
-    <ul className="space-y-4">
-      {selectedCharacters.map((character) => (
-        <li
-          key={character.mal_id}
-          className="bg-transparent p-3 border border-gray-300 rounded-md flex items-center justify-between"
-        >
-          <div className="flex items-center">
-            <img src={character.imageUrl} alt={character.name} className="w-12 h-12 rounded-full mr-4" />
-            <span className="neon-green font-semibold">{character.name}</span>
-          </div>
-          
-          <button
-            type="button"
-            onClick={() => handleRemoveCharacter(character)}
-            className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
-          >
-            Remove
-          </button>
-        </li>
-      ))}
-    </ul>
-  </div>
-)}
+            {/* Display selected characters before adding to the squad */}
+            {selectedCharacters && selectedCharacters.length > 0 && (
+        <div>
+            <h3 className="text-xl neon font-bold mb-2">Characters to Add to Squad:</h3>
+            <ul className="space-y-4">
+            {selectedCharacters.map((character) => (
+                <li
+                key={character.mal_id}
+                className="bg-transparent p-3 border border-gray-300 rounded-md flex items-center justify-between"
+                >
+                <div className="flex items-center">
+                    <img src={character.imageUrl} alt={character.name} className="w-14 h-14 rounded-full mr-4" />
+                    <span className="neon-green font-semibold">{character.name}</span>
+                </div>
+                
+                <button
+                    type="button"
+                    onClick={() => handleRemoveCharacter(character)}
+                    className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+                >
+                    Remove
+                </button>
+                </li>
+            ))}
+            </ul>
+        </div>
+        )}
 
 
 
