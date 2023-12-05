@@ -33,6 +33,10 @@ router.post('/create', async (req, res, next) => {
 }, squadsController.createSquad);
 
 
+// route to fetch user squads
+router.get('/user-squads', squadsController.getUserSquads);
+
+
 // Add other routes for read, update, delete
 
 module.exports = router;

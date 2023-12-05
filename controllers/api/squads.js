@@ -116,7 +116,7 @@ async function createSquad(req, res) {
       // Save the squad
       await newSquad.save();
 
-      res.status(201).json(newSquad);
+      res.status(201).json({ newSquad, charactersAdded: true });
     }
   } catch (error) {
     console.error('Error creating/editing squad:', error);
@@ -136,7 +136,7 @@ async function getUserSquads(req, res) {
       const user = req.user;
   
       // Find the user in the database and populate the squads field
-      const foundUser = await User.findById(user._id).populate('squads');
+      const foundUser = await User.findById(user._id).populate('squads');//.populate('user.squads');
   
       // Send the user's squads in the response
       res.status(200).json(foundUser.squads);

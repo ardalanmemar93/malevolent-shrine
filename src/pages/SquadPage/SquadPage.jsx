@@ -1,32 +1,20 @@
 import React, { useEffect, useState } from 'react';
+import sendRequest from '../../utilities/send-request';
 
-const SquadPage = ({ user }) => {
+const SquadPage = () => {
   const [userSquads, setUserSquads] = useState([]);
-
+  const BASE_URL = '/api/squads';
+  
   useEffect(() => {
-    const fetchUserSquads = async () => {
-      try {
-        const response = await fetch('/api/squads/user-squads', {
-          headers: {
-            'Authorization': `Bearer ${user.token}`,
-          },
-        });
-
-        if (response.ok) {
-          const squads = await response.json();
-          setUserSquads(squads);
-        } else {
-          console.error('Error fetching user squads:', await response.json());
-        }
-      } catch (error) {
-        console.error('Error fetching user squads:', error);
-      }
-    };
-
-    if (user) {
-      fetchUserSquads();
+    const fetchSquads = async () => {
+      const res = await sendRequest(`${BASE_URL}/squads`);
+      const data = await res.json();
+      setUserSquads(data);
     }
-  }, [user]);
+  }, []);
+  // might need a payload 
+
+
 
   return (
     <div>

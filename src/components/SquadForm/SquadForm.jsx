@@ -73,15 +73,23 @@ const SquadForm = ({user}) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization' : `Bearer ${getToken()}`,
+          'Authorization': `Bearer ${getToken()}`,
         },
         body: JSON.stringify({ name, characters: selectedCharacters }),
       });
   
       if (response.ok) {
         // Handle the response or redirect the user
-        const squadData = await response.json();
-        console.log('Squad created successfully:', squadData);
+        const responseData = await response.json();
+        console.log('Squad created successfully:', responseData);
+  
+        // Check if characters were added
+        if (responseData.charactersAdded) {
+          // Clear the selected characters
+          setSelectedCharacters([]);
+        }
+  
+        // Handle other responses as needed
       } else {
         // Handle error
         const errorData = await response.json();
@@ -91,6 +99,7 @@ const SquadForm = ({user}) => {
       console.error('Error sending request:', error);
     }
   };
+  
   
 
   
