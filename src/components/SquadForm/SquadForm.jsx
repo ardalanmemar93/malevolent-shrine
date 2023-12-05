@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-// import getCharacter from '../../utilities/jikan-api';
-import getCharacter, { searchCharacters } from '../../utilities/jikan-api';
+import getCharacter,{ searchCharacters } from '../../utilities/jikan-api';
 import { getToken } from '../../utilities/users-service';
 
 
@@ -17,24 +16,36 @@ const SquadForm = ({user}) => {
   
   const handleSearch = async () => {
     try {
-      // Send a request to Jikan API to search for anime characters
       const data = await searchCharacters(characterSearch);
       console.log('Received data from Jikan API:', data);
-
+  
       // Ensure that data.data is an array before using map
       const characterIds = Array.isArray(data.data) ? data.data.map(result => result.mal_id) : [];
       console.log('Character IDs:', characterIds);
-
+  
       // Fetch detailed character data using getCharacter function for the top two results
-      const topTwoCharacterData = await Promise.all(characterIds.slice(0, 2).map(id => getCharacter(id)));
-      console.log('Top Two Character Data:', topTwoCharacterData);
-
+      const topTwoCharacterData = await Promise.all(characterIds.slice(0, 2).map(async id => {
+        try {
+          return await getCharacter(id);
+        } catch (error) {
+          console.error('Error fetching character data for character ID', id, error);
+          return null;
+        }
+      }));
+  
+      // Filter out null values (characters not found)
+      const filteredCharacterData = topTwoCharacterData.filter(character => character !== null);
+  
+      console.log('Top Two Character Data:', filteredCharacterData);
+  
       // Set the search results with the detailed character data
-      setSearchResults(topTwoCharacterData);
+      setSearchResults(filteredCharacterData);
     } catch (error) {
       console.error('Error searching for characters:', error);
     }
   };
+  
+  
   
   
   
@@ -55,18 +66,18 @@ const SquadForm = ({user}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
       // Send a request to the backend to create a new squad
       const response = await fetch('/api/squads/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-            'Authorization' : `Bearer ${getToken()}`,
+          'Authorization' : `Bearer ${getToken()}`,
         },
         body: JSON.stringify({ name, characters: selectedCharacters }),
       });
-
+  
       if (response.ok) {
         // Handle the response or redirect the user
         const squadData = await response.json();
@@ -80,6 +91,7 @@ const SquadForm = ({user}) => {
       console.error('Error sending request:', error);
     }
   };
+  
 
   
   // Render your form
@@ -121,32 +133,35 @@ const SquadForm = ({user}) => {
         </div>
       </div>
 
-      {/* Display search results */}
-      {searchResults && searchResults.length > 0 && (
-        <div>
-          <h3 className="text-xl font-bold mb-2">Search Results:</h3>
-          <ul className="space-y-4">
-            {searchResults.map((result) => (
-              <li
-                key={result.mal_id}
-                className="w-full bg-transparent p-3 border border-gray-300 rounded-md flex items-center justify-between"
-              >
-                <div className="flex items-center">
-                  <img src={result.imageUrl} alt={result.name} className="w-12 h-12 rounded-full mr-4" />
-                  <span className="text-gray-800 font-semibold neon-green">{result.name}</span>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => handleAddCharacter(result)}
-                  className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
-                >
-                  Add
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+{/* Display search results */}
+{searchResults && searchResults.length > 0 && (
+  <div>
+    <h3 className="text-xl font-bold mb-2">Search Results:</h3>
+    <ul className="space-y-4">
+      {searchResults.map((result) => (
+        <li
+          key={result.mal_id}
+          className="w-full bg-transparent p-3 border border-gray-300 rounded-md flex items-center justify-between"
+        >
+          <div className="flex items-center">
+            {result.imageUrl && (
+              <img src={result.imageUrl} alt={result.name} className="w-12 h-12 rounded-full mr-4" />
+            )}
+            <span className="text-gray-800 font-semibold neon-green">{result.name}</span>
+          </div>
+          <button
+            type="button"
+            onClick={() => handleAddCharacter(result)}
+            className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
+          >
+            Add
+          </button>
+        </li>
+      ))}
+    </ul>
+  </div>
+)}
+
 
             {/* Display selected characters before adding to the squad */}
             {selectedCharacters && selectedCharacters.length > 0 && (

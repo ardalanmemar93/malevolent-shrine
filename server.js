@@ -8,6 +8,7 @@ require('dotenv').config();
 require('./config/database');
 const squadsRoutes = require('./routes/api/squads');
 const cors = require('cors')
+const userSquadsRoutes = require('./routes/api/user-squads');
 
 
 
@@ -44,6 +45,8 @@ const port = process.env.PORT || 3001;
 app.use('/api/users', require('./routes/api/users'));
 
 app.use('/api/squads', squadsRoutes);
+
+app.use('/api/squads/user-squads', userSquadsRoutes);
 
 
 
