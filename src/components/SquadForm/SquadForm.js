@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 // import getCharacter from '../../utilities/jikan-api';
 import getCharacter, { searchCharacters } from '../../utilities/jikan-api';
+import { getToken } from '../../utilities/users-service';
 
 
 
@@ -61,13 +62,12 @@ const SquadForm = ({user}) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+            'Authorization' : `Bearer ${getToken()}`,
         },
         body: JSON.stringify({ name, characters: selectedCharacters }),
-        user: user._id
       });
 
       if (response.ok) {
-        // Squad created successfully
         // Handle the response or redirect the user
         const squadData = await response.json();
         console.log('Squad created successfully:', squadData);
@@ -100,7 +100,7 @@ const SquadForm = ({user}) => {
       </div>
 
       <div className="mb-4">
-        <label htmlFor="characterSearch" className="block  text-sm font-bold mb-2 neon">
+        <label htmlFor="characterSearch" className="block text-sm font-bold mb-2 neon">
           Search for Anime Character:
         </label>
         <div className="flex">

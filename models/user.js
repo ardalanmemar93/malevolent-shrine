@@ -20,7 +20,7 @@ const userSchema = new Schema({
   squads: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'squadScheema', 
+      ref: 'squadSchema', 
     },
   ],
 }, {

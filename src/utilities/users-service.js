@@ -42,7 +42,4 @@ export function getUser() {
   return token ? JSON.parse(atob(token.split('.')[1])).user : null;
 }
 
-export function checkToken() {
-  return usersAPI.checkToken()
-    .then(dateStr => new Date(dateStr));
-}
+

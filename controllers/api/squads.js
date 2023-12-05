@@ -1,4 +1,6 @@
 const Squad = require('../../models/squad');
+const Character = require('../../models/character');
+const User = require('../../models/user');
 
 module.exports = {
   createSquad,
@@ -11,17 +13,21 @@ async function createSquad(req, res) {
       return res.status(401).json({ error: 'Unauthorized' });
     }
 
-    console.log('req.user:', req.user);
     const user = req.user;
-
+    const foundUser = await User.findById(user._id);
+    console.log(user._id);
     const { characters, name } = req.body;
+    
+    const newCharacters = await Character.create(characters)
 
     // Create a new squad and associate it with the user
-    const newSquad = await Squad.create({ user: user._id, characters, name });
+    const newSquad = await Squad.create({ user: user._id, name })
 
     // Update user's squads array
-    user.squads.push(newSquad._id);
-    await user.save();
+    foundUser.squads.push(newSquad._id);
+    await foundUser.save();
+    newSquad.characters.push(...newCharacters.map(c => c._id));
+    await newSquad.save();
 
     res.status(201).json(newSquad);
   } catch (error) {
