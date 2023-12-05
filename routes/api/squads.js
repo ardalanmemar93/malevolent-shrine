@@ -36,7 +36,11 @@ router.post('/create', async (req, res, next) => {
 // route to fetch user squads
 router.get('/', squadsController.index);
 
+// Route to delete a squad
+router.delete('/:squadId', squadsController.deleteSquad);
 
-// Add other routes for read, update, delete
+
+
+
 
 module.exports = router;
