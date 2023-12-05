@@ -51,6 +51,7 @@ const User = require('../../models/user');
 module.exports = {
   createSquad,
   getUserSquads,
+  index
 };
 
 async function createSquad(req, res) {
@@ -142,6 +143,17 @@ async function getUserSquads(req, res) {
       res.status(200).json(foundUser.squads);
     } catch (error) {
       console.error('Error fetching user squads:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  }
+
+//index function to get all squads
+  async function index(req, res) {
+    try {
+      const squads = await Squad.find({});
+      res.status(200).json(squads);
+    } catch (error) {
+      console.error('Error fetching squads:', error);
       res.status(500).json({ error: 'Internal Server Error' });
     }
   }

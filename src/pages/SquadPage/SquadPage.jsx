@@ -6,14 +6,16 @@ const SquadPage = () => {
   const BASE_URL = '/api/squads';
   
   useEffect(() => {
+    // Fetch the user's squads
     const fetchSquads = async () => {
-      const res = await sendRequest(`${BASE_URL}/squads`);
-      const data = await res.json();
-      setUserSquads(data);
+      // Send the GET request to the server
+      const res = await sendRequest(BASE_URL);
+      // Set the list of squads in state
+      setUserSquads(res);
     }
+    // Invoke the async function
+    fetchSquads();
   }, []);
-  // might need a payload 
-
 
 
   return (
