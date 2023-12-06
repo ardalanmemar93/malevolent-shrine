@@ -17,24 +17,21 @@ const SquadForm = ({user}) => {
   const handleSearch = async () => {
     try {
       const data = await searchCharacters(characterSearch);
-      console.log('Received data from Jikan API:', data);
   
       // Ensure that data.data is an array before using map
       const characterIds = Array.isArray(data.data) ? data.data.map(result => result.mal_id) : [];
-      console.log('Character IDs:', characterIds);
-  
+
       // Fetch detailed character data using getCharacter function for the top five results
       const topFiveCharacterData = await Promise.all(characterIds.slice(0, 5).map(async id => {
         try {
           return await getCharacter(id);
         } catch (error) {
-          console.error('Error fetching character data for character ID', id, error);
           return null;
         }
       }));
+
       // Filter out null values (characters not found)
       const filteredCharacterData = topFiveCharacterData.filter(character => character !== null);
-      console.log('Top Five Character Data:', filteredCharacterData);
       // Set the search results with the detailed character data
       setSearchResults(filteredCharacterData);
     } catch (error) {
@@ -82,7 +79,6 @@ const SquadForm = ({user}) => {
       } else {
         // Handle error
         const errorData = await response.json();
-        console.error('Error creating squad:', errorData);
       }
     } catch (error) {
       console.error('Error sending request:', error);

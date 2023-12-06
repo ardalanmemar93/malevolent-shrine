@@ -7,7 +7,6 @@ const jwt = require('jsonwebtoken');
 router.post('/create', async (req, res, next) => {
   try {
     const token = req.headers.authorization && req.headers.authorization.split(' ')[1];
-
     if (token) {
       // Verify the token using the correct secret
       const decoded = jwt.verify(token, process.env.SECRET);
@@ -15,17 +14,13 @@ router.post('/create', async (req, res, next) => {
       if (decoded) {
         // Attach user information to the request
         req.user = decoded.user;
-        console.log('User is authenticated:', req.user);
       } else {
-        console.log('Invalid token');
         return res.status(401).json({ error: 'Unauthorized' });
       }
     } else {
-      console.log('Token not found in headers');
       return res.status(401).json({ error: 'Unauthorized' });
     }
   } catch (error) {
-    console.error('Token verification failed:', error);
     return res.status(401).json({ error: 'Unauthorized' });
   }
 
