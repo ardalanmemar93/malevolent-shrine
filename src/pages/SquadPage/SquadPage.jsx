@@ -5,6 +5,7 @@ import sendRequest from '../../utilities/send-request';
 const SquadPage = () => {
   const [userSquads, setUserSquads] = useState([]);
   const [selectedSquad, setSelectedSquad] = useState(null);
+  const [selectedCharacter, setSelectedCharacter] = useState(null);
   const BASE_URL = '/api/squads';
 
   // Define fetchSquads outside the useEffect
@@ -54,6 +55,17 @@ const SquadPage = () => {
       console.error('Error fetching squad:', error);
     }
   };
+
+  const handleCharacterClick = (character) => {
+    // Toggle the visibility of the selected character when it is clicked
+    setSelectedCharacter((prevSelectedCharacter) => {
+      if (prevSelectedCharacter && prevSelectedCharacter._id === character._id) {
+        return null; // Hide the details if the same character is clicked again
+      }
+      return character; // Show the details if a different character is clicked
+    });
+  };
+  
   
   
 
@@ -76,7 +88,7 @@ const SquadPage = () => {
                 Delete
               </button>
             </div>
-  
+
             {/* Display squad details if selected */}
             {selectedSquad && selectedSquad._id === squad._id && (
               <div className="bg-gray-200 p-4 mt-2 rounded">
@@ -89,13 +101,12 @@ const SquadPage = () => {
                           src={character.imageUrl}
                           alt={character.name}
                           className="w-14 h-14 rounded-full mr-4"
+                          onClick={() => handleCharacterClick(character)}
+                          // Add an onClick handler to show character details
                         />
                         <div>
                           <p className="font-bold">{character.name}</p>
                           <p className="text-gray-600">{character.nameKanji}</p>
-                          {/* <p>{character.about}</p> */}
-                          {/* <p>Favorites: {character.favorites}</p> */}
-                          {/* <p>MAL ID: {character.mal_id}</p> */}
                         </div>
                       </div>
                     </li>
@@ -106,13 +117,17 @@ const SquadPage = () => {
           </li>
         ))}
       </ul>
+
+      {/* Display selected character details */}
+      {selectedCharacter && (
+        <div className="bg-gray-200 p-4 mt-2 rounded">
+          <h3 className="text-lg font-bold mb-2">{selectedCharacter.name} Details</h3>
+          <p>{selectedCharacter.about}</p>
+          {/* Add other character details you want to display */}
+        </div>
+      )}
     </div>
   );
-  
-  
-
-
-
 };
 
 export default SquadPage;
