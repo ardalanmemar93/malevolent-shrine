@@ -28,6 +28,8 @@ router.post('/create', async (req, res, next) => {
 }, squadsController.createSquad);
 
 
+
+
 // route to fetch user squads
 router.get('/', squadsController.index);
 
@@ -37,6 +39,8 @@ router.delete('/:squadId', squadsController.deleteSquad);
 // route to fetch squad details by squad ID
 router.get('/:squadId', squadsController.getSquadDetails);
 
+// Route to update a squad
+router.put('/update-squad/:squadId', squadsController.updateSquad);
 
 
 

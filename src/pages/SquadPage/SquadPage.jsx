@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import sendRequest from '../../utilities/send-request';
-// const Character = require('../../models/character');
+
+
 
 const SquadPage = () => {
   const [userSquads, setUserSquads] = useState([]);
   const [selectedSquad, setSelectedSquad] = useState(null);
   const [selectedCharacter, setSelectedCharacter] = useState(null);
+  const navigate = useNavigate();
+
   const BASE_URL = '/api/squads';
 
   // Define fetchSquads outside the useEffect
@@ -38,7 +42,6 @@ const SquadPage = () => {
 
 
 
-
   const handleSquadClick = async (squadId) => {
     try {
       // Send the GET request to the server
@@ -66,7 +69,12 @@ const SquadPage = () => {
     });
   };
   
-  
+
+
+  const handleUpdateSquad = (squadId) => {
+    // Navigate to the squad form for updating
+    navigate(`/update-squad/${squadId}`);
+  };
   
 
 
@@ -77,10 +85,17 @@ const SquadPage = () => {
         {userSquads.map((squad) => (
           <li key={squad._id} className="mb-2">
             <div
-              className="flex items-center justify-between bg-gray-100 p-2 rounded cursor-pointer"
+              className="flex items-center justify-between neon-blue p-2 rounded cursor-pointer"
               onClick={() => handleSquadClick(squad._id)}
             >
               <span className="text-lg">{squad.name}</span>
+
+              <button
+                onClick={() => handleUpdateSquad(squad._id)}
+                className="bg-yellow-500 text-white px-4 py-2 rounded mr-2 hover:bg-yellow-600"
+              >
+                Update
+              </button>
               <button
                 onClick={() => handleDeleteSquad(squad._id)}
                 className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
@@ -91,12 +106,12 @@ const SquadPage = () => {
 
             {/* Display squad details if selected */}
             {selectedSquad && selectedSquad._id === squad._id && (
-              <div className="bg-gray-200 p-4 mt-2 rounded">
-                <h3 className="text-lg font-bold mb-2">{selectedSquad.name} Characters</h3>
+              <div className=" p-4 mt-2 rounded">
+                <h3 className="text-lg font-bold mb-2 neon-white">{selectedSquad.name} Characters</h3>
                 <ul>
                   {selectedSquad.characters.map((character) => (
                     <li key={character._id} className="mb-4">
-                      <div className="flex items-center">
+                      <div className="flex items-center bg-teal-500">
                         <img
                           src={character.imageUrl}
                           alt={character.name}

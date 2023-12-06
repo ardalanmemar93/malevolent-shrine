@@ -7,7 +7,8 @@ module.exports = {
   getUserSquads,
   index,
   deleteSquad,
-  getSquadDetails
+  getSquadDetails,
+  updateSquad,
 };
 
 async function createSquad(req, res) {
@@ -43,7 +44,6 @@ async function createSquad(req, res) {
       await squadToUpdate.save();
       res.status(200).json(squadToUpdate);
     } else {
-      // Create new squad
       // Create the characters and save them to the database
       const newCharacters = await Character.create(characters);
       // Create a new squad and associate it with the user
@@ -148,6 +148,44 @@ async function getUserSquads(req, res) {
           console.error('Error fetching squad details:', error);
           res.status(500).json({ error: 'Internal Server Error' });
       }
+  }
+
+
+
+  // squad update function 
+  async function updateSquad(req, res) {
+    try {
+      console.log('Received squadId:', req.params.squadId);
+      // Check if user is authenticated
+      if (!req.user) {
+        return res.status(401).json({ error: 'Unauthorized' });
+      }
+      // Get the user from the database
+      const user = req.user;
+      // Get the squad details from the request body
+      const { squadId, characters, name } = req.body;
+      // Find the squad in the database
+      const squadToUpdate = await Squad.findById(squadId);
+      // Check if the squad exists and belongs to the user
+      if (!squadToUpdate || squadToUpdate.user.toString() !== user._id.toString()) {
+        return res.status(404).json({ error: 'Squad not found or unauthorized' });
+      }
+      // Update squad's name
+      squadToUpdate.name = name;
+      // Remove existing characters from the squad
+      squadToUpdate.characters = [];
+      // Create new characters and save them to the database
+      const newCharacters = await Character.create(characters);
+      // Update squad's characters array
+      squadToUpdate.characters.push(...newCharacters.map(c => c._id));
+      // Save the updated squad
+      await squadToUpdate.save();
+      console.log('Squad updated successfully:', squadToUpdate);
+      res.status(200).json(squadToUpdate);
+    } catch (error) {
+      console.error('Error updating squad:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
   }
 
 
