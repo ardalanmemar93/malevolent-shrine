@@ -39,6 +39,9 @@ router.get('/', squadsController.index);
 // Route to delete a squad
 router.delete('/:squadId', squadsController.deleteSquad);
 
+// route to fetch squad details by squad ID
+router.get('/:squadId', squadsController.getSquadDetails);
+
 
 
 

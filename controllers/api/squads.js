@@ -1,12 +1,13 @@
-const Squad = require('../../models/squad');
 const Character = require('../../models/character');
+const Squad = require('../../models/squad');
 const User = require('../../models/user');
 
 module.exports = {
   createSquad,
   getUserSquads,
   index,
-  deleteSquad
+  deleteSquad,
+  getSquadDetails
 };
 
 async function createSquad(req, res) {
@@ -113,7 +114,7 @@ async function getUserSquads(req, res) {
     }
   }
 
-  
+
   //delete function to delete a squad
   async function deleteSquad(req, res) {
     try {
@@ -156,3 +157,27 @@ async function getUserSquads(req, res) {
       res.status(500).json({ error: 'Internal Server Error' });
     }
   }
+
+
+  //squad details function
+  async function getSquadDetails(req, res) {
+      try {
+          const squadId = req.params.squadId;
+  
+          // Retrieve squad details from the database
+          const squadDetails = await Squad.findById(squadId)
+              .populate('characters'); 
+  
+          // Check if the squad exists
+          if (!squadDetails) {
+              return res.status(404).json({ error: 'Squad not found' });
+          }
+  
+          // Send the squad details as JSON response
+          res.status(200).json(squadDetails);
+      } catch (error) {
+          console.error('Error fetching squad details:', error);
+          res.status(500).json({ error: 'Internal Server Error' });
+      }
+  }
+  

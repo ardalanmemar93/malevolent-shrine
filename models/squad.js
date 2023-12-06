@@ -3,13 +3,13 @@ const mongoose = require('mongoose');
 const squadSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'userSchema', 
+        ref: 'User', 
         required: true
     },
     characters: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'characterSchema' 
+            ref: 'Character' 
         }
     ],
     name: {
