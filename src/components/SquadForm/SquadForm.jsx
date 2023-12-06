@@ -35,19 +35,13 @@ const SquadForm = ({user}) => {
   
       // Filter out null values (characters not found)
       const filteredCharacterData = topTwoCharacterData.filter(character => character !== null);
-  
       console.log('Top Two Character Data:', filteredCharacterData);
-  
       // Set the search results with the detailed character data
       setSearchResults(filteredCharacterData);
     } catch (error) {
       console.error('Error searching for characters:', error);
     }
   };
-  
-  
-  
-  
   
   const handleAddCharacter = (character) => {
     // Add the selected character to the list of selected characters
@@ -66,7 +60,6 @@ const SquadForm = ({user}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
     try {
       // Send a request to the backend to create a new squad
       const response = await fetch('/api/squads/create', {
@@ -77,18 +70,15 @@ const SquadForm = ({user}) => {
         },
         body: JSON.stringify({ name, characters: selectedCharacters }),
       });
-  
       if (response.ok) {
         // Handle the response or redirect the user
         const responseData = await response.json();
         console.log('Squad created successfully:', responseData);
-  
         // Check if characters were added
         if (responseData.charactersAdded) {
           // Clear the selected characters
           setSelectedCharacters([]);
         }
-  
         // Handle other responses as needed
       } else {
         // Handle error

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import sendRequest from '../../utilities/send-request';
+// const Character = require('../../models/character');
 
 const SquadPage = () => {
   const [userSquads, setUserSquads] = useState([]);
@@ -55,7 +56,8 @@ const SquadPage = () => {
   };
   
   
-  
+
+
   return (
     <div>
       <h2 className="text-2xl font-bold mb-4 neon-green">Your Squads</h2>
@@ -74,15 +76,28 @@ const SquadPage = () => {
                 Delete
               </button>
             </div>
-
+  
             {/* Display squad details if selected */}
             {selectedSquad && selectedSquad._id === squad._id && (
               <div className="bg-gray-200 p-4 mt-2 rounded">
                 <h3 className="text-lg font-bold mb-2">{selectedSquad.name} Characters</h3>
                 <ul>
                   {selectedSquad.characters.map((character) => (
-                    <li key={character._id} className="mb-1">
-                      {character.name} - {character.class}
+                    <li key={character._id} className="mb-4">
+                      <div className="flex items-center">
+                        <img
+                          src={character.imageUrl}
+                          alt={character.name}
+                          className="w-14 h-14 rounded-full mr-4"
+                        />
+                        <div>
+                          <p className="font-bold">{character.name}</p>
+                          <p className="text-gray-600">{character.nameKanji}</p>
+                          {/* <p>{character.about}</p> */}
+                          {/* <p>Favorites: {character.favorites}</p> */}
+                          {/* <p>MAL ID: {character.mal_id}</p> */}
+                        </div>
+                      </div>
                     </li>
                   ))}
                 </ul>
@@ -93,6 +108,10 @@ const SquadPage = () => {
       </ul>
     </div>
   );
+  
+  
+
+
 
 };
 
