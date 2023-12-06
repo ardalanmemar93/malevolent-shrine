@@ -80,13 +80,11 @@ const SquadUpdateForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Determine the URL based on whether it's an update or create
-      const apiUrl = squadId ? `/api/squads/${squadId}` : '/api/squads/create';
-      // Choose the appropriate method (PUT for update, POST for create)
-      const method = squadId ? 'PUT' : 'POST';
-      // Send a request to the backend to create or update the squad
+      // the update URL
+      const apiUrl = `/api/squads/${squadId}`;
+      // Send a request to the backend to update the squad
       const response = await fetch(apiUrl, {
-        method,
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${getToken()}`,
@@ -96,22 +94,18 @@ const SquadUpdateForm = () => {
       if (response.ok) {
         // Handle the response or redirect the user
         const responseData = await response.json();
-        console.log('Squad updated/created successfully:', responseData);
-        // Check if characters were added (for create)
-        if (!squadId && responseData.charactersAdded) {
-          // Clear the selected characters for create
-          setSelectedCharacters([]);
-        }
+        console.log('Squad updated successfully:', responseData);
         // Handle other responses as needed
       } else {
         // Handle error
         const errorData = await response.json();
-        console.error('Error:', errorData);
+        console.error('Error updating squad:', errorData);
       }
     } catch (error) {
       console.error('Error sending request:', error);
     }
   };
+  
   
 
   const handleRemoveCharacterFromSquad = (characterId) => {

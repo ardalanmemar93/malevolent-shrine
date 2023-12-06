@@ -189,5 +189,3 @@ async function getUserSquads(req, res) {
   }
 
 
-
-  
