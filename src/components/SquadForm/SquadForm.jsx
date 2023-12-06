@@ -23,8 +23,8 @@ const SquadForm = ({user}) => {
       const characterIds = Array.isArray(data.data) ? data.data.map(result => result.mal_id) : [];
       console.log('Character IDs:', characterIds);
   
-      // Fetch detailed character data using getCharacter function for the top two results
-      const topTwoCharacterData = await Promise.all(characterIds.slice(0, 2).map(async id => {
+      // Fetch detailed character data using getCharacter function for the top five results
+      const topFiveCharacterData = await Promise.all(characterIds.slice(0, 5).map(async id => {
         try {
           return await getCharacter(id);
         } catch (error) {
@@ -32,10 +32,9 @@ const SquadForm = ({user}) => {
           return null;
         }
       }));
-  
       // Filter out null values (characters not found)
-      const filteredCharacterData = topTwoCharacterData.filter(character => character !== null);
-      console.log('Top Two Character Data:', filteredCharacterData);
+      const filteredCharacterData = topFiveCharacterData.filter(character => character !== null);
+      console.log('Top Five Character Data:', filteredCharacterData);
       // Set the search results with the detailed character data
       setSearchResults(filteredCharacterData);
     } catch (error) {
