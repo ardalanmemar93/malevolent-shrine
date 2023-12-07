@@ -73,7 +73,7 @@ const SquadPage = () => {
 
   return (
     <div className="form-wrapper w-full p-6 shadow-md rounded-md ">
-      <h2 className="text-3xl font-bold mb-6 text-green-500">Your Squads</h2>
+      <h2 className="text-3xl font-bold mb-6 neon-green">Squads</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {userSquads.map((squad) => (
           <div key={squad._id} className="mb-6">
@@ -82,17 +82,16 @@ const SquadPage = () => {
               onClick={() => handleSquadClick(squad._id)}
             >
               <span className="text-xl font-semibold">{squad.name}</span>
-  
               <div className="mt-2 space-x-2">
                 <button
                   onClick={() => handleUpdateSquad(squad._id)}
-                  className="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600 text-sm"
+                  className="bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 text-white px-3 py-1 rounded hover:from-purple-700 hover:via-purple-800 hover:to-purple-900 text-sm transition duration-300"
                 >
                   Update
                 </button>
                 <button
                   onClick={() => handleDeleteSquad(squad._id)}
-                  className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 text-sm"
+                  className="bg-gradient-to-r from-red-500 via-red-600 to-red-700 text-white px-3 py-1 rounded hover:from-red-700 hover:via-red-800 hover:to-red-900 text-sm transition duration-300"
                 >
                   Delete
                 </button>
