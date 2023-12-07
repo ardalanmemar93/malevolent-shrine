@@ -163,21 +163,34 @@ async function getUserSquads(req, res) {
       // Get the user from the database
       const user = req.user;
       // Get the squad details from the request body
-      const { squadId, characters, name } = req.body;
+      const { characters, name } = req.body;
+      const squadId = req.params.squadId;
       // Find the squad in the database
       const squadToUpdate = await Squad.findById(squadId);
       // Check if the squad exists and belongs to the user
       if (!squadToUpdate || squadToUpdate.user.toString() !== user._id.toString()) {
         return res.status(404).json({ error: 'Squad not found or unauthorized' });
       }
-      // Update squad's name
+      // Create an array to store updated characters
+      const updatedCharacters = [];
+      // Iterate through characters and update or insert into the database
+      for (const character of characters) {
+        if (character._id) {
+          // If character has an _id, it's an existing character, update it
+          const existingCharacter = await Character.findByIdAndUpdate(character._id, character, {
+            new: true,
+            upsert: true, // Create the character if it doesn't exist
+          });
+          updatedCharacters.push(existingCharacter._id);
+        } else {
+          // If character doesn't have an _id, it's a new character, insert it
+          const newCharacter = await Character.create(character);
+          updatedCharacters.push(newCharacter._id);
+        }
+      }
+      // Update squad's name and characters
       squadToUpdate.name = name;
-      // Remove existing characters from the squad
-      squadToUpdate.characters = [];
-      // Create new characters and save them to the database
-      const newCharacters = await Character.create(characters);
-      // Update squad's characters array
-      squadToUpdate.characters.push(...newCharacters.map(c => c._id));
+      squadToUpdate.characters = updatedCharacters;
       // Save the updated squad
       await squadToUpdate.save();
       console.log('Squad updated successfully:', squadToUpdate);
@@ -187,5 +200,17 @@ async function getUserSquads(req, res) {
       res.status(500).json({ error: 'Internal Server Error' });
     }
   }
+  
+
+
+
+
+
+
+
+
+
+
+
 
 

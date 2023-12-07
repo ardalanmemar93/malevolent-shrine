@@ -63,7 +63,7 @@ const SquadUpdateForm = () => {
   
   const handleAddCharacter = (character) => {
     // Add the selected character to the list of selected characters
-    setSelectedCharacters([...selectedCharacters, character]);
+    setSquadCharacters([...squadCharacters, character]);
     // Clear the search results
     setSearchResults([]);
     // Clear the character search input
@@ -72,13 +72,14 @@ const SquadUpdateForm = () => {
 
   const handleRemoveCharacter = (character) => {
     // Remove the selected character from the list
-    const updatedCharacters = selectedCharacters.filter((c) => c !== character);
-    setSelectedCharacters(updatedCharacters);
+    const updatedCharacters = squadCharacters.filter((c) => c !== character);
+    setSquadCharacters(updatedCharacters);
   };
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(squadCharacters)
     try {
       // the update URL
       const apiUrl = `/api/squads/${squadId}`;
@@ -89,7 +90,7 @@ const SquadUpdateForm = () => {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${getToken()}`,
         },
-        body: JSON.stringify({ name, characters: selectedCharacters }),
+        body: JSON.stringify({ name, characters: squadCharacters }),
       });
       if (response.ok) {
         // Handle the response or redirect the user

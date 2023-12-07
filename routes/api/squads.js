@@ -40,7 +40,7 @@ router.delete('/:squadId', squadsController.deleteSquad);
 router.get('/:squadId', squadsController.getSquadDetails);
 
 // Route to update a squad
-router.put('/update-squad/:squadId', squadsController.updateSquad);
+router.put('/:squadId', squadsController.updateSquad);
 
 
 
