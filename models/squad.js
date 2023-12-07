@@ -18,10 +18,10 @@ const squadSchema = new mongoose.Schema({
     },
 });
 
-// custom validator to ensure there are at most 5 characters in the array
+// custom validator to ensure there are at most 6 characters in the array
 squadSchema.path('characters').validate(function (value) {
-    return value.length <= 5;
-}, 'Squad can have at most 5 characters.');
+    return value.length <= 6;
+}, 'Squad can have at most 6 characters.');
 
 const Squad = mongoose.model('Squad', squadSchema);
 

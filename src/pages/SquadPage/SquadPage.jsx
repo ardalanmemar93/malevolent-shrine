@@ -3,13 +3,17 @@ import { useNavigate } from 'react-router-dom';
 import sendRequest from '../../utilities/send-request';
 import { animated, useSpring } from 'react-spring';
 
+
+
 const SquadPage = () => {
   const [userSquads, setUserSquads] = useState([]);
   const [selectedSquad, setSelectedSquad] = useState(null);
   const [selectedCharacter, setSelectedCharacter] = useState(null);
   const navigate = useNavigate();
-
   const BASE_URL = '/api/squads';
+
+
+
 
   const fetchSquads = async () => {
     try {
@@ -65,83 +69,81 @@ const SquadPage = () => {
     to: { opacity: 1, height: 'auto' },
   });
 
+
+
   return (
-    <div className="form-wrapper w-full  p-6 shadow-md rounded-md">
-    <h2 className="text-2xl font-bold mb-4 neon-green">Your Squads</h2>
-     <ul className="space-y-4">
-  {userSquads.map((squad) => (
-    <li key={squad._id} className="mb-2">
-      <div
-        className="flex items-center justify-between p-4 rounded cursor-pointer bg-neon-blue"
-        onClick={() => handleSquadClick(squad._id)}
-      >
-        <span className="text-lg neon-blue">{squad.name}</span>
-
-        <div className="space-x-2">
-          <button
-            onClick={() => handleUpdateSquad(squad._id)}
-            className="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600 text-sm"
-          >
-            Update
-          </button>
-          <button
-            onClick={() => handleDeleteSquad(squad._id)}
-            className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 text-sm"
-          >
-            Delete
-          </button>
-        </div>
-      </div>
-
-      {selectedSquad && selectedSquad._id === squad._id && (
-        <div className="p-4 mt-2 rounded bg-gray-200">
-          <h3 className="text-lg font-bold mb-2 text-neon-white">{selectedSquad.name} Characters</h3>
-          <ul className="space-y-4">
-            {selectedSquad.characters.map((character) => (
-              <li key={character._id} className="mb-4">
-                <div className="flex items-center bg-teal-500 p-4 rounded">
-                  <img
-                    src={character.imageUrl}
-                    alt={character.name}
-                    className="w-20 h-20 rounded-full mr-4 cursor-pointer"
-                    onClick={() => handleCharacterClick(character)}
-                  />
-                  <div>
-                    <p className="font-bold text-white">{character.name}</p>
-                    <p className="text-gray-600">{character.nameKanji}</p>
-                  </div>
+    <div className="form-wrapper w-full p-6 shadow-md rounded-md bg-gray-100">
+      <h2 className="text-3xl font-bold mb-6 text-green-500">Your Squads</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {userSquads.map((squad) => (
+          <div key={squad._id} className="mb-6">
+            <div
+              className="flex flex-col p-4 rounded cursor-pointer bg-blue-500 text-white"
+              onClick={() => handleSquadClick(squad._id)}
+            >
+              <span className="text-xl font-semibold">{squad.name}</span>
+  
+              <div className="mt-2 space-x-2">
+                <button
+                  onClick={() => handleUpdateSquad(squad._id)}
+                  className="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600 text-sm"
+                >
+                  Update
+                </button>
+                <button
+                  onClick={() => handleDeleteSquad(squad._id)}
+                  className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 text-sm"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+  
+            {selectedSquad && selectedSquad._id === squad._id && (
+              <div className="p-4 mt-2 rounded bg-gray-200">
+                <h3 className="text-lg font-bold mb-2 text-gray-800">{selectedSquad.name} Characters</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {selectedSquad.characters.map((character) => (
+                    <div key={character._id} className="mb-4">
+                      <div className="flex items-center bg-teal-500 p-4 rounded text-white">
+                        <img
+                          src={character.imageUrl}
+                          alt={character.name}
+                          className="w-20 h-20 rounded-full mr-4 cursor-pointer"
+                          onClick={() => handleCharacterClick(character)}
+                        />
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              </li>
-            ))}
-          </ul>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+  
+      {selectedCharacter && (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+          <div className="bg-gray-200 p-4 rounded">
+            <div className="flex items-center">
+              <div className="w-1/3 mr-4">
+                <img
+                  src={selectedCharacter.imageUrl}
+                  alt={selectedCharacter.name}
+                  className="w-full h-auto rounded-full cursor-pointer"
+                  onClick={() => handleCharacterClick(selectedCharacter)}
+                />
+              </div>
+              <div className="w-2/3">
+                <h3 className="text-lg font-bold mb-2">{selectedCharacter.name} Details</h3>
+                <animated.div style={aboutSpring}>
+                  <p className="text-gray-800">{selectedCharacter.about}</p>
+                </animated.div>
+              </div>
+            </div>
+          </div>
         </div>
       )}
-    </li>
-  ))}
-</ul>
-
-
-  {selectedCharacter && (
-    <div className="bg-gray-200 p-4 mt-2 rounded">
-      <div className="flex items-center">
-        <div className="w-1/3 mr-4">
-          <img
-            src={selectedCharacter.imageUrl}
-            alt={selectedCharacter.name}
-            className="w-full h-auto rounded-full cursor-pointer"
-            onClick={() => handleCharacterClick(selectedCharacter)}
-          />
-        </div>
-        <div className="w-2/3">
-          <h3 className="text-lg font-bold mb-2">{selectedCharacter.name} Details</h3>
-          <animated.div style={aboutSpring}>
-            <p>{selectedCharacter.about}</p>
-          </animated.div>
-        </div>
-      </div>
-    </div>
-  )}
-
     </div>
   );
 };
