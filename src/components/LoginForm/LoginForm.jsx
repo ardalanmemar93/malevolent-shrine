@@ -51,8 +51,8 @@ export default function LoginForm({ setUser }) {
           />
           <button
             type="submit"
-            className=" neon {`neon px-4 py-2 rounded-full transition duration-300 ${disable ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105'} focus:outline-none bg-red-500`}"
-          >
+            className="neon px-4 py-2 rounded-full transition duration-300 hover:scale-105 focus:outline-none bg-red-500"
+            >
             LOG IN
           </button>
         </form>
