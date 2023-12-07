@@ -7,7 +7,6 @@ require('dotenv').config();
 // Connect to the database
 require('./config/database');
 const squadsRoutes = require('./routes/api/squads');
-const cors = require('cors')
 
 
 
@@ -15,12 +14,6 @@ const cors = require('cors')
 
 const app = express();
 
-app.use(cors({
-  origin: 'http://localhost:3000',
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  exposedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true
-}));
 
 
 app.use(logger('dev'));
