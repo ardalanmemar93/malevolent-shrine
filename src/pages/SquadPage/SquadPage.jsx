@@ -81,7 +81,7 @@ const SquadPage = () => {
               className="flex flex-col p-4 rounded cursor-pointer text-white"
               onClick={() => handleSquadClick(squad._id)}
             >
-              <span className="text-xl font-semibold">{squad.name}</span>
+              <span className="text-xl font-semibold neon-blue">{squad.name}</span>
               <div className="mt-2 space-x-2">
                 <button
                   onClick={() => handleUpdateSquad(squad._id)}
