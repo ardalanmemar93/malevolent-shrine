@@ -7,10 +7,6 @@ export default function NewSquadPage() {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Perform any necessary actions with the form data
-    // For example, you can send it to the server using an API request
-
     console.log('Form submitted:', formData);
   };
 
@@ -31,9 +27,6 @@ export default function NewSquadPage() {
 }
 
 const initialFormData = {
-  // Initialize with any default form data if needed
-  // Example:
   squadName: '',
   leader: '',
-  // Add other fields as needed
 };

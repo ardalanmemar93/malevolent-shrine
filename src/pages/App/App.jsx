@@ -6,6 +6,8 @@ import NewSquadPage from '../NewSquadPage/NewSquadPage';
 import SquadPage from '../SquadPage/SquadPage';
 import SquadUpdateForm from '../../components/SquadUpdateForm/SquadUpdateForm';
 import NavBar from '../../components/NavBar/NavBar';
+import AboutPage from '../AboutPage/AboutPage';
+
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import 'slick-carousel/slick/slick.css';
@@ -18,7 +20,6 @@ export default function App() {
   const { squadId } = useParams();
 
   useEffect(() => {
-    // getCharacter(909);
   }, []);
 
   return (
@@ -33,6 +34,7 @@ export default function App() {
               <Route path="/squads/new" element={<NewSquadPage />} />
               <Route path="/squads" element={<SquadPage />} />
               <Route path="/update-squad/:squadId" element={<SquadUpdateForm user={user} squadId={squadId}/>} />
+              <Route path="/about" element={<AboutPage />} />
             </Routes>
           </main>
         </>
