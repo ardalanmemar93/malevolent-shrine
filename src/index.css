@@ -35,8 +35,8 @@ body {
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 0.2rem;
-  color: #000080;
-  text-shadow: 0 0 10px #87CEFA, 0 0 20px #87CEFA, 0 0 30px #87CEFA, 0 0 40px #87CEFA, 0 0 70px #87CEFA, 0 0 80px #87CEFA, 0 0 100px #87CEFA, 0 0 150px #87CEFA;
+  color: white;
+  text-shadow: 0 0 20px #9400D3, 0 0 20px #9400D3, 0 0 30px #9400D3, 0 0 40px #9400D3, 0 0 70px #9400D3, 0 0 80px #9400D3, 0 0 100px #9400D3, 0 0 150px #9400D3;
 }
 
 .neon-white {
