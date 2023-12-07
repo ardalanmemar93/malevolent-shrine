@@ -2,6 +2,8 @@ import React, { useState, useEffect} from 'react';
 import getCharacter,{ searchCharacters } from '../../utilities/jikan-api';
 import { getToken } from '../../utilities/users-service';
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 
 
 
@@ -12,6 +14,7 @@ const SquadUpdateForm = () => {
   const [selectedCharacters, setSelectedCharacters] = useState([]);
   const [squadCharacters, setSquadCharacters] = useState([]);
   const { squadId } = useParams();
+  const navigate = useNavigate();
 
 
 
@@ -96,7 +99,9 @@ const SquadUpdateForm = () => {
         // Handle the response or redirect the user
         const responseData = await response.json();
         console.log('Squad updated successfully:', responseData);
-        // Handle other responses as needed
+
+        // Redirect to the squads page
+        navigate('/squads');
       } else {
         // Handle error
         const errorData = await response.json();
