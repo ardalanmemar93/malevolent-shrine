@@ -99,7 +99,6 @@ const SquadUpdateForm = () => {
         // Handle the response or redirect the user
         const responseData = await response.json();
         console.log('Squad updated successfully:', responseData);
-
         // Redirect to the squads page
         navigate('/squads');
       } else {
