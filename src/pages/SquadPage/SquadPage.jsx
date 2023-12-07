@@ -72,8 +72,7 @@ const SquadPage = () => {
 
 
   return (
-    <div className="form-wrapper w-full p-6 shadow-md rounded-md">
-      <h2 className="text-3xl font-bold mb-6 neon-green">Squads</h2>
+    <div className="form-wrapper w-full p-6 shadow-md rounded-md mt-16">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {userSquads.map((squad) => (
           <div key={squad._id} className="mb-6">
@@ -122,36 +121,37 @@ const SquadPage = () => {
         ))}
       </div>
   
-      {selectedCharacter && (
-        <div className="grid grid-cols-1 mt-6">
-          <div className="bg-gray-200 p-4 rounded">
-            <div className="flex items-center">
-              <div className="w-1/3 mr-4">
-                <img
-                  src={selectedCharacter.imageUrl}
-                  alt={selectedCharacter.name}
-                  className="w-full h-auto rounded-full cursor-pointer"
-                  onClick={() => handleCharacterClick(selectedCharacter)}
-                />
-              </div>
-              <div className="w-2/3">
-                <div className="flex flex-col mb-4">
-                  <h3 className="text-lg font-bold">{selectedCharacter.name}</h3>
-                  <p className="text-gray-600">{selectedCharacter.nameKanji}</p>
+          {selectedCharacter && (
+            <div className="grid grid-cols-1 mt-6">
+              <div className="bg-gray-200 p-4 rounded">
+                <div className="flex items-center">
+                  <div className="w-1/3 mr-4">
+                    <img
+                      src={selectedCharacter.imageUrl}
+                      alt={selectedCharacter.name}
+                      className="w-full h-auto rounded-full cursor-pointer"
+                      onClick={() => handleCharacterClick(selectedCharacter)}
+                    />
+                  </div>
+                  <div className="w-2/3">
+                    <div className="flex flex-col mb-4">
+                      <h3 className="text-lg font-bold">{selectedCharacter.name}</h3>
+                      <p className="text-gray-600">{selectedCharacter.nameKanji}</p>
+                    </div>
+                    <div className="mb-2">
+                      <p className="text-gray-800">{selectedCharacter.about}</p>
+                    </div>
+                    <animated.div style={aboutSpring}>
+                      {/* Additional content if needed */}
+                    </animated.div>
+                  </div>
                 </div>
-                <div className="mb-2">
-                  <p className="text-gray-800">{selectedCharacter.about}</p>
-                </div>
-                <animated.div style={aboutSpring}>
-                  {/* Additional content if needed */}
-                </animated.div>
               </div>
             </div>
-          </div>
+          )}
         </div>
-      )}
-    </div>
-  );
+      );
+
       };
 
 export default SquadPage;

@@ -24,8 +24,7 @@ export default function NewSquadPage() {
   };
 
   return (
-    <div>
-      <h1 className="neon-green">New Squad</h1>
+    <div className="mt-8">
       <SquadForm formData={formData} onChange={handleChange} onSubmit={handleSubmit} />
     </div>
   );

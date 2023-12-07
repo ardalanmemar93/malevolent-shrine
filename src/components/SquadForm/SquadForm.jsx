@@ -85,7 +85,7 @@ const SquadForm = ({ user }) => {
   
   // Render your form
   return (
-    <form onSubmit={handleSubmit} className=" max-w-md mx-auto mt-8 p-4  shadow-md rounded-md">
+    <form onSubmit={handleSubmit} className=" max-w-md mx-auto mt-16 p-4  shadow-md rounded-md">
       <div className="mb-4">
         <label htmlFor="name" className="block  text-sm font-bold mb-2 neon">
           Squad Name:
