@@ -17,6 +17,7 @@ body {
   justify-content: center; 
   align-items: center; 
   height: 100vh; 
+  overflow: auto;
 }
 
 
@@ -55,5 +56,6 @@ body {
   color: #9370DB; 
   text-shadow: 0 0 10px #800080, 0 0 20px #800080, 0 0 30px #800080, 0 0 40px #800080, 0 0 70px #800080, 0 0 80px #800080, 0 0 100px #800080, 0 0 150px #800080; /* Purple shadow */
 }
+
 
 

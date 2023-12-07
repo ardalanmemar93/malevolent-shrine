@@ -93,7 +93,7 @@ const SquadPage = () => {
                         <img
                           src={character.imageUrl}
                           alt={character.name}
-                          className="w-20 h-20 rounded-full mr-4 cursor-pointer"
+                          className="w-full h-full rounded-full mr-4 cursor-pointer"
                           onClick={() => handleCharacterClick(character)}
                         />
                       </div>
