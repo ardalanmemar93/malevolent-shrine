@@ -9,6 +9,7 @@ const SquadPage = () => {
   const [userSquads, setUserSquads] = useState([]);
   const [selectedSquad, setSelectedSquad] = useState(null);
   const [selectedCharacter, setSelectedCharacter] = useState(null);
+
   const navigate = useNavigate();
   const BASE_URL = '/api/squads';
 
@@ -26,6 +27,7 @@ const SquadPage = () => {
 
   useEffect(() => {
     fetchSquads();
+    
   }, []);
 
   const handleDeleteSquad = async (squadId) => {

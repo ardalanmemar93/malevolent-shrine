@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState, useEffect} from 'react';
 import getCharacter,{ searchCharacters } from '../../utilities/jikan-api';
 import { getToken } from '../../utilities/users-service';
 

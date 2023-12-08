@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import CanvasAnimation from '../../components/CanvasAnimation/CanvasAnimation';
 
 const AboutPage = () => {
-
   return (
     <div>
-      <h1>About page hai</h1>
-      <div style={{ height: '300px', width: '500px' }} />
+      <CanvasAnimation />
+      <div className="aizen"></div>
     </div>
   );
 };
 
 export default AboutPage;
+
