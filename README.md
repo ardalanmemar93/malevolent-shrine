@@ -2,8 +2,6 @@
 
 # 
 
-<!-- ![Malevolent Shrine Wireframe](/public/images/ms-aboutpage.png) -->
-
 <img width="1423" src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExcDVpanE3YTB6aGpqNHFmcG5wN2czYTZ2a21hOWZrbHRmcWsxNGplNiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/0oeRw1rpYXZgvewneq/giphy.gif"/>
 
 "Malevolent Shrine" - In this web application, users can explore and interact with anime characters using data fetched from the Jikan API. Users have the ability to sign up and log in, enabling them to create and showcase their anime squads. The application empowers users to update or remove their squads, laying the foundation for future features such as a squad battle system. This platform provides a space for anime enthusiasts to engage in community interactions centered around their favorite characters and squads.
