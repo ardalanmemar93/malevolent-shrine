@@ -18,14 +18,14 @@ const CanvasAnimation = () => {
     const trailParticles = [];
 
     function createParticle() {
-      const particle = {
-        x: canvas.width / 2 + (Math.random() - 0.5) * 20,
-        y: canvas.height,
-        radius: Math.random() * 8 + 5,
-        color: `rgba(148, 0, 211, ${Math.random()})`,
-        speed: Math.random() * 8 + 5,
-        angle: Math.random() * 120 - 70,
-      };
+        const particle = {
+            x: canvas.width / 2 + (Math.random() - 0.5) * 20,
+            y: canvas.height * 0.8, // Adjusted starting position
+            radius: Math.random() * 8 + 5,
+            color: `rgba(148, 0, 211, ${Math.random()})`,
+            speed: Math.random() * 8 + 5,
+            angle: Math.random() * 120 - 70,
+          };
 
       particles.push(particle);
 
