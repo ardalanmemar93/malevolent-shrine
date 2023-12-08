@@ -144,7 +144,6 @@ const SquadPage = () => {
                       <p className="text-gray-800">{selectedCharacter.about}</p>
                     </div>
                     <animated.div style={aboutSpring}>
-                      {/* Additional content if needed */}
                     </animated.div>
                   </div>
                 </div>

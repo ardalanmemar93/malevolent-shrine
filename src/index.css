@@ -63,8 +63,6 @@ body {
   height: 500px;
   width: 400px;
   position: absolute;
-  /* top: 20px; */
-  /* left: 450px; */
   background-image: url('/public/images/sosuke.png');
   background-size: cover;
   z-index: 2;

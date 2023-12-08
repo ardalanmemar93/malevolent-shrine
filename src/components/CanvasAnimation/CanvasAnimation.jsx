@@ -18,28 +18,31 @@ const CanvasAnimation = () => {
     const trailParticles = [];
 
     function createParticle() {
+        const startingPosition = Math.random() < 0.5 ? canvas.width / 4 : (3 * canvas.width) / 4;
+        const xOffset = Math.random() < 0.5 ? -40 : 40; 
+      
         const particle = {
-            x: canvas.width / 2 + (Math.random() - 0.5) * 20,
-            y: canvas.height * 0.8, // Adjusted starting position
-            radius: Math.random() * 8 + 5,
-            color: `rgba(148, 0, 211, ${Math.random()})`,
-            speed: Math.random() * 8 + 5,
-            angle: Math.random() * 120 - 70,
-          };
-
-      particles.push(particle);
-
-      // Create trailing particles for a more realistic effect
-      for (let i = 0; i < 5; i++) {
-        const trailParticle = {
-          x: particle.x,
-          y: particle.y,
-          radius: particle.radius * 0.8,
-          color: `rgba(148, 0, 211, ${Math.random() * 0.5})`,
+          x: startingPosition + xOffset,
+          y: canvas.height * 0.5,
+          radius: Math.random() * 8 + 5,
+          color: `rgba(148, 0, 211, ${Math.random()})`,
+          speed: Math.random() * 8 + 5,
+          angle: Math.random() * 120 - 70,
         };
-        trailParticles.push(trailParticle);
+      
+        particles.push(particle);
+      
+        for (let i = 0; i < 5; i++) {
+          const trailParticle = {
+            x: particle.x,
+            y: particle.y,
+            radius: particle.radius * 0.8,
+            color: `rgba(148, 0, 211, ${Math.random() * 0.5})`,
+          };
+          trailParticles.push(trailParticle);
+        }
       }
-    }
+        
 
     function drawParticles() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
