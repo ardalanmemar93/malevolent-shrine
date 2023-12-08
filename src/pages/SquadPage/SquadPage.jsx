@@ -119,6 +119,7 @@ const SquadPage = () => {
                 </div>
               </div>
             )}
+            
           </div>
         ))}
       </div>
