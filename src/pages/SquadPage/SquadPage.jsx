@@ -125,7 +125,7 @@ const SquadPage = () => {
       </div>
   
           {selectedCharacter && (
-            <div className="grid grid-cols-1 mt-6">
+            <div className="grid grid-cols-1 mt-6 max-h-[100px]">
               <div className="bg-gray-200 p-4 rounded">
                 <div className="flex items-center">
                   <div className="w-1/3 mr-4">
