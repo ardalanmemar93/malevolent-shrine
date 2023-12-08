@@ -131,7 +131,7 @@ const SquadForm = ({ user }) => {
     {/* Display search results */}
     {searchResults && searchResults.length > 0 && (
       <div>
-        <h3 className="text-xl font-bold mb-2">Search Results:</h3>
+        <h3 className="text-xl font-bold mb-2 neon">Search Results:</h3>
         <ul className="space-y-4">
           {searchResults.map((result) => (
             <li
