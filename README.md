@@ -67,7 +67,7 @@ Sign UP Page.
 
 ![Gotei13 Wireframe](/public/images/ms-signup.png)
 
- Search and create Squads.
+ Search for Characters and create Squads.
 
 ![Gotei13 Wireframe](/public/images/ms-character-search.png)
 
