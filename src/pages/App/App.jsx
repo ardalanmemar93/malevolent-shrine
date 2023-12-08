@@ -21,7 +21,7 @@ export default function App() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col main">
+    <div className="min-h-screen flex flex-col main h-screen">
       {user ? (
         <>
           <NavBar user={user} setUser={setUser} />

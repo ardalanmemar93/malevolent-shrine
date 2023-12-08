@@ -9,7 +9,7 @@ const NavBar = ({ user, setUser }) => {
   }
 
   return (
-    <nav className="bg--500 p-4 text-white neon top-0 left-0 right-0 z-10">
+    <nav className="bg--500 p-4 text-white neon top-0 left-0 right-0 z-10 mt-16">
       <span className="ml-2">Welcome, {user.name}</span>
       <br />
       <Link to="/squads" className="hover:text-gray-300">Squads</Link>
