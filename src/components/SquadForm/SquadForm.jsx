@@ -1,6 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import getCharacter,{ searchCharacters } from '../../utilities/jikan-api';
 import { getToken } from '../../utilities/users-service';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -9,6 +10,7 @@ const SquadForm = ({ user }) => {
   const [characterSearch, setCharacterSearch] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [selectedCharacters, setSelectedCharacters] = useState([]);
+  const navigate = useNavigate();
 
 
   
@@ -61,16 +63,19 @@ const SquadForm = ({ user }) => {
         },
         body: JSON.stringify({ name, characters: selectedCharacters }),
       });
+
       if (response.ok) {
         // Handle the response or redirect the user
         const responseData = await response.json();
         console.log('Squad created successfully:', responseData);
-        // Check if characters were added
+        
         if (responseData.charactersAdded) {
           // Clear the selected characters
           setSelectedCharacters([]);
         }
-        // Handle other responses as needed
+
+        // Navigate to the Squads page after creating the squad
+        navigate('/squads'); // Add this line
       } else {
         // Handle error
         const errorData = await response.json();
@@ -79,6 +84,7 @@ const SquadForm = ({ user }) => {
       console.error('Error sending request:', error);
     }
   };
+
   
   
 
