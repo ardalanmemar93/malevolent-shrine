@@ -85,7 +85,6 @@ const CanvasAnimation = () => {
 
     animate();
 
-    // Clean up on component unmount
     return () => {
       canvasContainer.removeChild(canvas);
     };
