@@ -234,12 +234,12 @@ async function createSquad(req, res) {
 ```
 
 ## Future
-- [ ] Mobile support
-- [ ] Adding squad battles
-- [ ] Adding a comment section
-- [ ] Adding the user detaile in the comments
-- [ ] Adding the ability so users can create anime lists
-- [ ] Adding the functionality so that the user can favourite squads, characters and animes
-- [ ] Expand on the overall design
-- [ ] Refactor code 
+- [ ] Mobile support.
+- [ ] Adding squad battles.
+- [ ] Adding a comment section.
+- [ ] Adding the user detaile in the comments.
+- [ ] Adding the ability so users can create anime lists.
+- [ ] Adding the functionality so that the user can favourite squads, characters and animes.
+- [ ] Expand on the overall design.
+- [ ] Refactor code.
 
